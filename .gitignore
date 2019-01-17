@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/node,vuejs,webstorm+all
-# Edit at https://www.gitignore.io/?templates=node,vuejs,webstorm+all
+# Created by https://www.gitignore.io/api/vue,node,vuejs,webstorm+all
+# Edit at https://www.gitignore.io/?templates=vue,node,vuejs,webstorm+all
 
 ### Node ###
 # Logs
@@ -61,6 +61,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -80,14 +81,23 @@ typings/
 # FuseBox cache
 .fusebox/
 
-#DynamoDB Local files
+# DynamoDB Local files
 .dynamodb/
+
+### Vue ###
+# gitignore template for Vue.js projects
+#
+# Recommended template: Node.gitignore
+
+# TODO: where does this rule come from?
+docs/_book
+
+# TODO: where does this rule come from?
+test/
 
 ### Vuejs ###
 node_modules
 .DS_Store
-docs/_book
-test/
 
 ### WebStorm+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -170,4 +180,4 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
-# End of https://www.gitignore.io/api/node,vuejs,webstorm+all
+# End of https://www.gitignore.io/api/vue,node,vuejs,webstorm+all
