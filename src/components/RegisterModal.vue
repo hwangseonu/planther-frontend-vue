@@ -1,14 +1,18 @@
 <template>
-  <div v-if="visible" class="login-wrapper" @click="wrapperClick">
-    <div class="login-modal">
-      <div class="login-header">
-        <p class="login-title">로그인</p>
-        <i class="login-close fas fa-times" @click="onCloseClick"></i>
+  <div v-if="visible" class="register-wrapper" @click="wrapperClick">
+    <div class="register-modal">
+      <div class="register-header">
+        <p class="register-title">회원가입</p>
+        <i class="register-close fas fa-times" @click="onCloseClick"></i>
       </div>
-      <div class="login-form">
+      <div class="register-form">
         <input v-model="username" title="username" placeholder="Username">
         <input v-model="password" title="password" placeholder="Password" type="password">
-        <button class="login-button" @click="onLoginClick">로그인</button>
+        <input v-model="name" title="name" placeholder="Name">
+        <input v-model="grade" title="grade" placeholder="Grade" type="number">
+        <input v-model="cls" title="class" placeholder="Class" type="number">
+        <input v-model="num" title="number" placeholder="Number" type="number">
+        <button class="register-button" @click="onRegisterClick">회원가입</button>
       </div>
     </div>
   </div>
@@ -16,28 +20,31 @@
 
 <script>
   export default {
-    name: "LoginModal",
+    name: "RegisterModal",
     data() {
       return {
         visible: false,
         username: '',
-        password: ''
+        password: '',
+        name: '',
+        grade: '',
+        cls: '',
+        num: ''
       }
     },
     mounted: function () {
-      this.$root.$on('login-click', () => this.visible = true)
+      this.$root.$on('register-click', () => this.visible = true);
     },
     methods: {
-      onCloseClick: function () {
-        this.visible = false
+      onRegisterClick: function () {
+        //TODO
       },
-      onLoginClick: function () {
-        console.log(this.username);
-        console.log(this.password);
+      onCloseClick: function () {
+        this.visible = false;
       },
       wrapperClick: function (event) {
         event.preventDefault();
-        if (event.target.classList.contains('login-wrapper')) {
+        if (event.target.classList.contains('register-wrapper')) {
           this.visible = false;
         }
       }
@@ -46,7 +53,7 @@
 </script>
 
 <style>
-  .login-wrapper {
+  .register-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,25 +65,25 @@
     background-color: rgba(0, 0, 0, 0.5);
   }
 
-  .login-modal {
+  .register-modal {
     padding: 30px;
     width: calc(41.666% - 60px);
     background-color: #FFF;
     border-radius: 30px;
   }
 
-  .login-header {
+  .register-header {
     display: flex;
     align-items: center;
     cursor: default;
   }
 
-  .login-title {
+  .register-title {
     font-weight: bold;
     font-size: 2em;
   }
 
-  .login-close {
+  .register-close {
     font-size: 2em;
     color: #AAA;
     flex: 0 1 auto;
@@ -84,16 +91,16 @@
     cursor: pointer;
   }
 
-  .login-close:hover {
+  .register-close:hover {
     color: #1f1f1f;
   }
 
-  .login-form {
+  .register-form {
     margin-top: 3%;
     height: 100%;
   }
 
-  .login-form input {
+  .register-form input {
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
@@ -103,7 +110,7 @@
     font-weight: bold;
   }
 
-  .login-form .login-button {
+  .register-form .register-button {
     width: 100%;
     height: 50px;
     border: none;

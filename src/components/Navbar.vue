@@ -13,21 +13,27 @@
       </div>
       <div v-else>
         <span class="menu-item" @click="loginClick">로그인</span>
-        <span class="menu-item">회원가입</span>
+        <span class="menu-item" @click="registerClick">회원가입</span>
       </div>
     </div>
     <login-modal></login-modal>
+    <register-modal></register-modal>
   </nav>
 </template>
 
 <script>
   import LoginModal from './LoginModal';
+  import RegisterModal from './RegisterModal';
+
   export default {
     name: 'Navbar',
-    components: {LoginModal},
+    components: {LoginModal, RegisterModal},
     methods: {
       loginClick: function () {
-        this.$root.$emit('login-click')
+        this.$root.$emit('login-click');
+      },
+      registerClick: function () {
+        this.$root.$emit('register-click');
       }
     },
     data() {
