@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <router-link :to="{path:'/'}" class="navbar-brand" tag="div">
+    <router-link :to="'/'" class="navbar-brand" tag="div">
       <img class="logo" src="../assets/images/logo.svg" alt="logo">
       <span class="title">Planther</span>
     </router-link>

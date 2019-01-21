@@ -5,7 +5,7 @@
       <div class="title-wrapper">
         <p class="page-title">Planther</p>
         <p class="page-description">소중한 우리들의 일정을 위한 서비스</p>
-        <router-link :to="{path: '/calendar'}" tag="button">Go to calendar</router-link>
+        <router-link :to="'/calendar'" tag="button">Go to calendar</router-link>
       </div>
     </div>
     <div class="page-section">
