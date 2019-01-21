@@ -3,7 +3,7 @@
     <div class="login-modal">
       <div class="login-header">
         <p class="login-title">로그인</p>
-        <i class="login-close fas fa-times" @click="onCloseClick"></i>
+        <i class="login-close fas fa-times" @click="close"></i>
       </div>
       <div class="login-form">
         <input v-model="username" title="username" placeholder="Username">
@@ -28,7 +28,8 @@
       this.$root.$on('login-click', () => this.visible = true)
     },
     methods: {
-      onCloseClick: function () {
+      close: function () {
+        this.username = this.password = '';
         this.visible = false
       },
       onLoginClick: function () {
@@ -38,7 +39,7 @@
       wrapperClick: function (event) {
         event.preventDefault();
         if (event.target.classList.contains('login-wrapper')) {
-          this.visible = false;
+          this.close();
         }
       }
     }

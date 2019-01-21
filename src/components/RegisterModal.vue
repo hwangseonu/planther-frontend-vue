@@ -3,7 +3,7 @@
     <div class="register-modal">
       <div class="register-header">
         <p class="register-title">회원가입</p>
-        <i class="register-close fas fa-times" @click="onCloseClick"></i>
+        <i class="register-close fas fa-times" @click="close"></i>
       </div>
       <div class="register-form">
         <input v-model="username" title="username" placeholder="Username">
@@ -39,13 +39,14 @@
       onRegisterClick: function () {
         //TODO
       },
-      onCloseClick: function () {
+      close: function () {
+        this.username = this.password = this.name = this.grade = this.cls = this.num = '';
         this.visible = false;
       },
       wrapperClick: function (event) {
         event.preventDefault();
         if (event.target.classList.contains('register-wrapper')) {
-          this.visible = false;
+          this.close()
         }
       }
     }
