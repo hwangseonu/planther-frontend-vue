@@ -2,7 +2,7 @@
   <nav class="navbar">
     <a href="/">
       <div class="navbar-brand">
-        <img class="logo" src="../../assets/images/logo.svg" alt="logo">
+        <img class="logo" src="../assets/images/logo.svg" alt="logo">
         <span class="title">Planther</span>
       </div>
     </a>
@@ -12,16 +12,24 @@
         <span class="menu-item">로그아웃</span>
       </div>
       <div v-else>
-        <span class="menu-item">로그인</span>
+        <span class="menu-item" @click="loginClick">로그인</span>
         <span class="menu-item">회원가입</span>
       </div>
     </div>
+    <login-modal></login-modal>
   </nav>
 </template>
 
 <script>
+  import LoginModal from './LoginModal';
   export default {
     name: 'Navbar',
+    components: {LoginModal},
+    methods: {
+      loginClick: function () {
+        this.$root.$emit('login-click')
+      }
+    },
     data() {
       return {
         login: '',
