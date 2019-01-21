@@ -1,11 +1,9 @@
 <template>
   <nav class="navbar">
-    <a href="/">
-      <div class="navbar-brand">
-        <img class="logo" src="../assets/images/logo.svg" alt="logo">
-        <span class="title">Planther</span>
-      </div>
-    </a>
+    <router-link :to="{path:'/'}" class="navbar-brand" tag="div">
+      <img class="logo" src="../assets/images/logo.svg" alt="logo">
+      <span class="title">Planther</span>
+    </router-link>
     <div class="navbar-menu">
       <div v-if="login">
         <span class="menu-item">{{username}}님 환영합니다.</span>
