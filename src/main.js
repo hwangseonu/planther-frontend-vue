@@ -12,6 +12,13 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.prototype.$http.defaults.baseURL = "https://planther-api.herokuapp.com/";
 
+router.beforeEach(async function (to, from, next) {
+  try {
+    await store.dispatch('updateUserData')
+  } catch (_) {}
+  next();
+});
+
 new Vue({
   el: '#app',
   router,

@@ -6,7 +6,7 @@
     </router-link>
     <div class="navbar-menu">
       <div v-if="login">
-        <span class="menu-item">{{username}}님 환영합니다.</span>
+        <span class="menu-item">{{user.username}}님 환영합니다.</span>
         <span class="menu-item">로그아웃</span>
       </div>
       <div v-else>
@@ -25,6 +25,14 @@
 
   export default {
     name: 'Navbar',
+    computed: {
+      login: function () {
+        return this.$store.getters.isLogin
+      },
+      user: function () {
+        return this.$store.getters.userData
+      }
+    },
     components: {LoginModal, RegisterModal},
     methods: {
       showLogin: function () {
@@ -32,11 +40,6 @@
       },
       showRegister: function () {
         this.$root.$emit('show-register');
-      }
-    },
-    data() {
-      return {
-        login: '',
       }
     }
   }
