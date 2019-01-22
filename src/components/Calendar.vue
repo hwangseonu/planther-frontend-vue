@@ -1,15 +1,122 @@
 <template>
   <div class="calendar">
-
+    <div class="cal-header">
+      <p class="year">2019</p>
+      <p class="month">1</p>
+    </div>
+    <table class="cal-table">
+      <thead>
+        <tr>
+          <th>일</th>
+          <th>월</th>
+          <th>화</th>
+          <th>수</th>
+          <th>목</th>
+          <th>금</th>
+          <th>토</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="week in weeks">
+          <th v-for="day in week">
+            <day v-if="day" v-bind:day="day"></day>
+          </th>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+  import Day from './Day';
+
+  const Utils = {
+    isLeapYear(year) {
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    },
+    getDays(year, month) {
+      const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      let day = days[month - 1];
+      if (month === 2 && Utils.isLeapYear(year)) {
+        day += 1;
+      }
+      return day;
+    },
+    getDayOfWeek(year, month, day) {
+      const t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
+      year -= month < 3;
+      return parseInt(year + year / 4 - year / 100 + year / 400 + t[month - 1] + day) % 7;
+    }
+  };
+
   export default {
-    name: "Calendar"
+    name: "Calendar",
+    components: {Day},
+    data() {
+      return {
+        weeks: [
+          [], [], [], [], []
+        ]
+      }
+    },
+    mounted: function () {
+      [...Array(Utils.getDayOfWeek(2019, 1, 1)).keys()].map(i => this.weeks[0].push(''));
+      console.log(this.weeks);
+      console.log(Utils.getDayOfWeek(2019,1,1));
+
+      let j = 0;
+      [...Array(Utils.getDays(2019, 1, 1)).keys()].map(i => {
+        if (this.weeks[j].length === 7) j++;
+        this.weeks[j].push(i + 1);
+      })
+    }
   }
 </script>
 
 <style>
+  .cal-table {
+    width: 100%;
+    table-layout: fixed;
+  }
 
+  .cal-header {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  .year {
+    color: #777;
+  }
+
+  .month {
+    font-weight: bold;
+    font-size: 3.5em;
+  }
+
+  .cal-table thead th {
+    background-color: #ffdf9b;
+    border-radius: 10px;
+  }
+
+  .cal-table tbody th {
+    height: calc(1280px / 7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .cal-table th:nth-child(1) {
+    color: red;
+  }
+
+  .cal-table th:nth-child(7) {
+    color: blue;
+  }
+
+  @media screen and (max-width: 1280px){
+    .cal-table tbody th {
+      height: 14vw;
+    }
+  }
 </style>
