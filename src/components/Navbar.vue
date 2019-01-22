@@ -10,8 +10,8 @@
         <span class="menu-item">로그아웃</span>
       </div>
       <div v-else>
-        <span class="menu-item" @click="loginClick">로그인</span>
-        <span class="menu-item" @click="registerClick">회원가입</span>
+        <span class="menu-item" @click="showLogin">로그인</span>
+        <span class="menu-item" @click="showRegister">회원가입</span>
       </div>
     </div>
     <login-modal></login-modal>
@@ -27,11 +27,11 @@
     name: 'Navbar',
     components: {LoginModal, RegisterModal},
     methods: {
-      loginClick: function () {
-        this.$root.$emit('login-click');
+      showLogin: function () {
+        this.$root.$emit('show-login');
       },
-      registerClick: function () {
-        this.$root.$emit('register-click');
+      showRegister: function () {
+        this.$root.$emit('show-register');
       }
     },
     data() {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="register-wrapper" @click="wrapperClick">
+  <div v-if="visible" class="register-wrapper" @click.self="close">
     <div class="register-modal">
       <div class="register-header">
         <p class="register-title">회원가입</p>
@@ -12,7 +12,7 @@
         <input v-model="grade" title="grade" placeholder="Grade" type="number">
         <input v-model="cls" title="class" placeholder="Class" type="number">
         <input v-model="num" title="number" placeholder="Number" type="number">
-        <button class="register-button" @click="onRegisterClick">회원가입</button>
+        <button class="register-button" @click="register">회원가입</button>
       </div>
     </div>
   </div>
@@ -33,22 +33,27 @@
       }
     },
     mounted: function () {
-      this.$root.$on('register-click', () => this.visible = true);
+      this.$root.$on('show-register', () => this.visible = true);
     },
     methods: {
-      onRegisterClick: function () {
-        //TODO
+      register: function () {
+        if (this.username === '' || this.password === '' || this.name === '' || this.grade === '' || this.cls === '' || this.num === '') {
+          alert("빈칸이 있습니다.");
+        } else {
+          this.$store.dispatch('signUp', {
+            username: this.username,
+            password: this.password,
+            name: this.name,
+            grade: this.grade,
+            cls: this.cls,
+            num: this.num
+          }).then(() => this.username = this.password = this.name = this.grade = this.cls = this.num = '')
+        }
       },
       close: function () {
         this.username = this.password = this.name = this.grade = this.cls = this.num = '';
         this.visible = false;
       },
-      wrapperClick: function (event) {
-        event.preventDefault();
-        if (event.target.classList.contains('register-wrapper')) {
-          this.close()
-        }
-      }
     }
   }
 </script>

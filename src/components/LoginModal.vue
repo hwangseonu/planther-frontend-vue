@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="login-wrapper" @click="wrapperClick">
+  <div v-if="visible" class="login-wrapper" @click.self="close">
     <div class="login-modal">
       <div class="login-header">
         <p class="login-title">로그인</p>
@@ -8,7 +8,7 @@
       <div class="login-form">
         <input v-model="username" title="username" placeholder="Username">
         <input v-model="password" title="password" placeholder="Password" type="password">
-        <button class="login-button" @click="onLoginClick">로그인</button>
+        <button class="login-button" @click="login">로그인</button>
       </div>
     </div>
   </div>
@@ -25,23 +25,23 @@
       }
     },
     mounted: function () {
-      this.$root.$on('login-click', () => this.visible = true)
+      this.$root.$on('show-login', () => this.visible = true)
     },
     methods: {
       close: function () {
         this.username = this.password = '';
         this.visible = false
       },
-      onLoginClick: function () {
-        console.log(this.username);
-        console.log(this.password);
-      },
-      wrapperClick: function (event) {
-        event.preventDefault();
-        if (event.target.classList.contains('login-wrapper')) {
-          this.close();
+      login: function () {
+        if (this.username === '' || this.password === '') {
+          alert("빈칸이 있습니다.");
+        } else {
+          this.$store.dispatch('signIn', {
+            username: this.username,
+            password: this.password
+          }).then(_ => this.username = this.password = '')
         }
-      }
+      },
     }
   }
 </script>
