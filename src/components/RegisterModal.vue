@@ -73,7 +73,7 @@
 
   .register-modal {
     padding: 30px;
-    width: calc(41.666% - 60px);
+    width: 600px;
     background-color: #FFF;
     border-radius: 30px;
   }

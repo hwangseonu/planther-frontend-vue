@@ -83,7 +83,7 @@
 
   .modal {
     padding: 30px;
-    width: 35.35%;
+    width: 600px;
     border-radius: 30px;
     background-color: #FFF;
   }
