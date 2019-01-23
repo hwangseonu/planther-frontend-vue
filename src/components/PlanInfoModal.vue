@@ -1,0 +1,127 @@
+<template>
+  <div class="modal-wrapper" v-if="show" @click.self="close">
+    <div class="modal">
+      <div class="modal-header">
+        <p class="title" v-bind:title="title">{{title}}</p>
+        <i class="modal-close fas fa-times" @click="close"></i>
+      </div>
+      <div class="modal-section">
+        <p class="writer">작성자: {{writer}}</p>
+        <div class="content">
+          <p v-for="text in computedContent">{{text}}</p>
+        </div>
+        <button class="delete-button">삭제</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "PlanInfoModal",
+    data () {
+       return {
+         show: false,
+         title: '',
+         content: '',
+         writer: ''
+       }
+    },
+    computed: {
+      computedContent () {
+        return this.content.split(/\n/);
+      }
+    },
+    methods: {
+      close () {
+        this.show = false;
+        this.title = this.content = this.writer = '';
+      }
+    },
+    mounted () {
+      this.$root.$on('show-info', ({title, content, username}) => {
+        this.show = true;
+        this.title = title;
+        this.content = content;
+        this.writer = username;
+      })
+    }
+  }
+</script>
+
+<style>
+  .modal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #000;
+  }
+
+  .modal {
+    padding: 30px;
+    width: 600px;
+    border-radius: 30px;
+    background-color: #FFF;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    cursor: default;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 2em;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    word-wrap:normal;
+    overflow:hidden;
+  }
+
+  .modal-close {
+    font-size: 2em;
+    color: #AAA;
+    flex: 0 1 auto;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .modal-close:hover {
+    color: #1f1f1f;
+  }
+
+  .content {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    font-weight: bold;
+    word-break: break-word;
+  }
+
+  .delete-button {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff7861;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #FFFFFF;
+  }
+
+  .delete-button:hover {
+    background-color: #ff5046;
+  }
+</style>

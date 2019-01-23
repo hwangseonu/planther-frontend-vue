@@ -24,12 +24,13 @@
         </tr>
       </tbody>
     </table>
+    <plan-modal></plan-modal>
   </div>
 </template>
 
 <script>
   import Day from './Day';
-  import AddPlanModal from './AddPlanModal';
+  import PlanModal from './PlanInfoModal';
 
   const Utils = {
     isLeapYear(year) {
@@ -52,7 +53,7 @@
 
   export default {
     name: "Calendar",
-    components: {Day, AddPlanModal},
+    components: {Day, PlanModal},
     props: ['date'],
     data() {
       return {

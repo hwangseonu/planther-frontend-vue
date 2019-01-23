@@ -6,8 +6,8 @@
         <i v-if="hover" class="add-plan hidden fas fa-plus" @click="addPlan"></i>
       </div>
       <div>
-        <div v-for="plan in plans" v-bind:class="'plan '+plan.type.toLowerCase()" @click="">
-          <span>{{plan.title}}</span>
+        <div v-for="plan in plans" v-bind:class="'plan '+plan.type.toLowerCase()" @click="showInfo(plan.title, plan.content, plan.user.username)">
+          <span v-bind:title="plan.title">{{plan.title}}</span>
         </div>
       </div>
     </div>
@@ -55,6 +55,9 @@
       }
     },
     methods: {
+      showInfo: function (title, content, username) {
+        this.$root.$emit('show-info', {title, content, username});
+      },
       addPlan: function () {
         if (!this.$store.getters.isLogin) {
           alert("먼저 로그인을 해주세요!");
