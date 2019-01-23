@@ -35,26 +35,30 @@
     },
     methods: {
       submit: function () {
-        const jwt = this.$cookie.get('JWT');
+        if (this.title === '' || this.content === '' || this.type === '') {
+          alert("빈칸이 있습니다.");
+        } else {
+          const jwt = this.$cookie.get('JWT');
 
-        this.$http.post('/plans', {
-          title: this.title,
-          content: this.content,
-          type: this.type,
-          year: this.date.year,
-          month: this.date.month,
-          day: this.date.day
-        }, {
-          headers: {
-            Authorization: `Bearer ${jwt}`
-          }
-        }).then(_ => {
-          alert("일정을 등록하였습니다.");
-          router.go(0);
-        }).catch(_ => {
-          alert("문제가 발생하였습니다.");
-          router.go(0);
-        })
+          this.$http.post('/plans', {
+            title: this.title,
+            content: this.content,
+            type: this.type,
+            year: this.date.year,
+            month: this.date.month,
+            day: this.date.day
+          }, {
+            headers: {
+              Authorization: `Bearer ${jwt}`
+            }
+          }).then(_ => {
+            alert("일정을 등록하였습니다.");
+            router.go(0);
+          }).catch(_ => {
+            alert("문제가 발생하였습니다.");
+            router.go(0);
+          })
+        }
       },
       close: function () {
         this.$root.$emit('close-addplan', {date: this.date});
@@ -74,6 +78,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    color: #000;
   }
 
   .modal {
