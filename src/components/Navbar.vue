@@ -59,7 +59,7 @@
 
   .navbar-brand {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1.3em;
     color: #000;
     margin-left: 2.5vw;
     cursor: pointer;

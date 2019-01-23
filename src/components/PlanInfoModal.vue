@@ -2,48 +2,61 @@
   <div class="modal-wrapper" v-if="show" @click.self="close">
     <div class="modal">
       <div class="modal-header">
-        <p class="title" v-bind:title="title">{{title}}</p>
+        <p class="title" v-bind:title="plan.title">{{plan.title}}</p>
         <i class="modal-close fas fa-times" @click="close"></i>
       </div>
       <div class="modal-section">
-        <p class="writer">작성자: {{writer}}</p>
+        <p class="writer">작성자: {{plan.user.username}}</p>
         <div class="content">
           <p v-for="text in computedContent">{{text}}</p>
         </div>
-        <button class="delete-button">삭제</button>
+        <button class="delete-button" @click="deletePlan">삭제</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import router from '@/router';
+
   export default {
     name: "PlanInfoModal",
     data () {
        return {
          show: false,
-         title: '',
-         content: '',
-         writer: ''
+         plan: {}
        }
     },
     computed: {
       computedContent () {
-        return this.content.split(/\n/);
+        return this.plan.content.split(/\n/);
       }
     },
     methods: {
       close () {
         this.show = false;
-        this.title = this.content = this.writer = '';
+        this.plan = {};
+      },
+      deletePlan () {
+        const jwt = this.$cookie.get('JWT');
+
+        this.$http.delete(`/plans/${this.plan.id}`, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        }).then(_ => {
+          alert("삭제되었습니다.");
+          router.go(0);
+        }).catch(_ => {
+          alert("삭제 도중 오류가 발생하였습니다.");
+          router.go(0);
+        })
       }
     },
     mounted () {
-      this.$root.$on('show-info', ({title, content, username}) => {
+      this.$root.$on('show-info', (plan) => {
         this.show = true;
-        this.title = title;
-        this.content = content;
-        this.writer = username;
+        this.plan = plan;
       })
     }
   }
