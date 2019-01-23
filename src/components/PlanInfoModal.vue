@@ -1,13 +1,13 @@
 <template>
-  <div class="modal-wrapper" v-if="show" @click.self="close">
-    <div class="modal">
-      <div class="modal-header">
-        <p class="title" v-bind:title="plan.title">{{plan.title}}</p>
-        <i class="modal-close fas fa-times" @click="close"></i>
+  <div class="info-wrapper" v-if="show" @click.self="close">
+    <div class="info">
+      <div class="info-header">
+        <p class="info-title" v-bind:title="plan.title">{{plan.title}}</p>
+        <i class="info-close fas fa-times" @click="close"></i>
       </div>
-      <div class="modal-section">
-        <p class="writer">작성자: {{plan.user.username}}</p>
-        <div class="content">
+      <div class="info-section">
+        <p class="info-writer">작성자: {{plan.user.username}}</p>
+        <div class="info-content">
           <p v-for="text in computedContent">{{text}}</p>
         </div>
         <button class="delete-button" @click="deletePlan">삭제</button>
@@ -20,7 +20,7 @@
   import router from '@/router';
 
   export default {
-    name: "PlanInfoModal",
+    name: "PlanInfoinfo",
     data () {
        return {
          show: false,
@@ -63,7 +63,7 @@
 </script>
 
 <style>
-  .modal-wrapper {
+  .info-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,20 +76,20 @@
     color: #000;
   }
 
-  .modal {
+  .info {
     padding: 30px;
     width: 600px;
     border-radius: 30px;
     background-color: #FFF;
   }
 
-  .modal-header {
+  .info-header {
     display: flex;
     align-items: center;
     cursor: default;
   }
 
-  .title {
+  .info-title {
     font-weight: bold;
     font-size: 2em;
     width: 100%;
@@ -101,7 +101,7 @@
     overflow:hidden;
   }
 
-  .modal-close {
+  .info-close {
     font-size: 2em;
     color: #AAA;
     flex: 0 1 auto;
@@ -109,11 +109,11 @@
     cursor: pointer;
   }
 
-  .modal-close:hover {
+  .info-close:hover {
     color: #1f1f1f;
   }
 
-  .content {
+  .info-content {
     margin-top: 20px;
     width: 100%;
     height: 300px;
