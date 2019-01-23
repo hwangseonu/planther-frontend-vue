@@ -43,6 +43,7 @@ const actions = {
       this._vm.$cookie.delete('JWT');
       commit(types.SET_LOGIN_STATUS, {isLogin: false});
       alert("로그아웃 되었습니다.");
+      router.go(0);
     }
   }
 };
