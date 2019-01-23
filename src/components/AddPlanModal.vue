@@ -8,7 +8,7 @@
       <div class="plan-form">
         <input v-model="title" title="title" placeholder="제목">
         <textarea v-model="content" title="content" placeholder="내용"></textarea>
-        <select v-model="type">
+        <select v-model="type" @keypress.enter="submit">
           <option value="" disabled hidden selected>일정 종류</option>
           <option value="assignment">과제</option>
           <option value="presentation">발표</option>
