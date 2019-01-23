@@ -1,8 +1,8 @@
 <template>
   <div class="calendar">
     <div class="cal-header">
-      <p class="year">2019</p>
-      <p class="month">1</p>
+      <p class="year">{{date.year}}</p>
+      <p class="month">{{date.month}}</p>
     </div>
     <table class="cal-table">
       <thead>
@@ -63,8 +63,19 @@
       }
     },
     mounted: function () {
+      let {year, month} = this.date;
+      year = parseInt(year);
+      month = parseInt(month);
 
-      const {year, month} = this.date;
+      if (year < 1) {
+        window.location.href = `/calendar/1/${month}`;
+      }
+      if (month < 1) {
+        window.location.href = `/calendar/${year - 1}/${12 + month}`;
+      } else if (month > 12) {
+        window.location.href = `/calendar/${year + 1}/${month - 12}`;
+      }
+
       [...Array(Utils.getDayOfWeek(year, month, 1)).keys()].map(i => this.weeks[0].push(''));
 
       let j = 0;

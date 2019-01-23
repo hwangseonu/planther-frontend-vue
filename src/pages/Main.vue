@@ -5,7 +5,7 @@
       <div class="title-wrapper">
         <p class="page-title">Planther</p>
         <p class="page-description">소중한 우리들의 일정을 위한 서비스</p>
-        <router-link :to="'/calendar'" tag="button">Go to calendar</router-link>
+        <router-link :to="'/calendar/'+date.year+'/'+date.month" tag="button">Go to calendar</router-link>
       </div>
     </div>
     <div class="page-section">
@@ -14,10 +14,21 @@
 </template>
 
 <script>
+  import moment from 'moment';
   import Navbar from '../components/Navbar';
 
   export default {
     name: 'Main',
+    computed: {
+      date () {
+        const year = moment().format("YYYY");
+        const month = moment().format("MM");
+        return {
+          year,
+          month
+        }
+      }
+    },
     components: {Navbar}
   }
 </script>

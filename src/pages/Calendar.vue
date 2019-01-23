@@ -1,7 +1,17 @@
 <template>
   <div id="calendar">
+    <div class="prev">
+      <a :href="'/calendar/'+year+'/'+(parseInt(month) - 1)">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+    </div>
+    <div class="next">
+      <a :href="'/calendar/'+year+'/'+(parseInt(month) + 1)">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+    </div>
     <navbar></navbar>
-    <calendar-comp v-bind:date="{year: 2019, month: 1}"></calendar-comp>
+    <calendar-comp v-bind:date="{year: year, month: month}"></calendar-comp>
   </div>
 </template>
 
@@ -11,6 +21,7 @@
 
   export default {
     name: "Calendar",
+    props: ['year', 'month'],
     components: {Navbar, CalendarComp}
   }
 </script>
@@ -22,6 +33,32 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .prev, .next {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    font-size: 5em;
+  }
+  
+  .prev a, .next a {
+    color: #AAA;
+  }
+
+  .prev {
+    left: 3%;
+  }
+
+  .next {
+    right: 3%;
+  }
+
+  .prev a:hover, .next a:hover {
+    color: #555;
+  }
+
 
   @media screen and (max-width: 1280px) {
     .calendar {
