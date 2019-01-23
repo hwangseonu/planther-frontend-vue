@@ -1,7 +1,7 @@
 <template>
   <div id="calendar">
     <navbar></navbar>
-    <calendar-comp></calendar-comp>
+    <calendar-comp v-bind:date="{year: 2019, month: 1}"></calendar-comp>
   </div>
 </template>
 

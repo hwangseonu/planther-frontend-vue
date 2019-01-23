@@ -19,7 +19,7 @@
       <tbody>
         <tr v-for="week in weeks">
           <th v-for="day in week">
-            <day v-if="day" v-bind:day="day"></day>
+            <day v-if="day" v-bind:date="{year: date.year, month: date.month, day: day}"></day>
           </th>
         </tr>
       </tbody>
@@ -29,6 +29,7 @@
 
 <script>
   import Day from './Day';
+  import AddPlanModal from './AddPlanModal';
 
   const Utils = {
     isLeapYear(year) {
@@ -51,7 +52,8 @@
 
   export default {
     name: "Calendar",
-    components: {Day},
+    components: {Day, AddPlanModal},
+    props: ['date'],
     data() {
       return {
         weeks: [
@@ -60,16 +62,16 @@
       }
     },
     mounted: function () {
-      [...Array(Utils.getDayOfWeek(2019, 1, 1)).keys()].map(i => this.weeks[0].push(''));
-      console.log(this.weeks);
-      console.log(Utils.getDayOfWeek(2019,1,1));
+
+      const {year, month} = this.date;
+      [...Array(Utils.getDayOfWeek(year, month, 1)).keys()].map(i => this.weeks[0].push(''));
 
       let j = 0;
-      [...Array(Utils.getDays(2019, 1, 1)).keys()].map(i => {
+      [...Array(Utils.getDays(year, month)).keys()].map(i => {
         if (this.weeks[j].length === 7) j++;
         this.weeks[j].push(i + 1);
       })
-    }
+    },
   }
 </script>
 
