@@ -33,7 +33,11 @@
     },
     methods: {
       addPlan: function () {
-        this.showAddPlan = true;
+        if (!this.$store.getters.isLogin) {
+          alert("먼저 로그인을 해주세요!");
+        } else {
+          this.showAddPlan = true;
+        }
       },
       mouseOver: function () {
         this.hover = true;

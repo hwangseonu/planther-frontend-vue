@@ -7,7 +7,7 @@
     <div class="navbar-menu">
       <div v-if="login">
         <span class="menu-item">{{user.username}}님 환영합니다.</span>
-        <span class="menu-item">로그아웃</span>
+        <span class="menu-item" @click="$store.dispatch('signOut')">로그아웃</span>
       </div>
       <div v-else>
         <span class="menu-item" @click="showLogin">로그인</span>
