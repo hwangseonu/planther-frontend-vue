@@ -24,7 +24,6 @@ const getters = {
 const actions = {
   updateUserData({commit}) {
     const jwt = this._vm.$cookie.get('JWT');
-    console.log(jwt);
 
     return new Promise((resolve, reject) => {
       if (jwt) {

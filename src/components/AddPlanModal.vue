@@ -8,23 +8,54 @@
       <div class="plan-form">
         <input v-model="title" title="title" placeholder="제목">
         <textarea v-model="content" title="content" placeholder="내용"></textarea>
-        <button class="submit-button" @click="close">추가</button>
+        <select v-model="type">
+          <option value="" disabled hidden selected>일정 종류</option>
+          <option value="assignment">과제</option>
+          <option value="presentation">발표</option>
+          <option value="event">행사</option>
+        </select>
+        <button class="submit-button" @click="submit">추가</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import router from '@/router';
+
   export default {
     name: "AddPlanModal",
     props: ['date'],
     data() {
       return {
         title: '',
-        content: ''
+        content: '',
+        type: ''
       }
     },
     methods: {
+      submit: function () {
+        const jwt = this.$cookie.get('JWT');
+
+        this.$http.post('/plans', {
+          title: this.title,
+          content: this.content,
+          type: this.type,
+          year: this.date.year,
+          month: this.date.month,
+          day: this.date.day
+        }, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        }).then(_ => {
+          alert("일정을 등록하였습니다.");
+          router.go(0);
+        }).catch(_ => {
+          alert("문제가 발생하였습니다.");
+          router.go(0);
+        })
+      },
       close: function () {
         this.$root.$emit('close-addplan', {date: this.date});
       }
@@ -76,14 +107,14 @@
   }
 
   .plan-form input {
-     width: 100%;
-     height: 50px;
-     margin-bottom: 20px;
-     border: none;
-     border-bottom: 1px solid #000;
-     font-size: 1.3em;
-     font-weight: bold;
-   }
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 1.3em;
+    font-weight: bold;
+  }
 
   .plan-form textarea {
     width: 100%;
@@ -105,5 +136,17 @@
     font-weight: bold;
     font-size: 1.3em;
     color: #FFF;
+  }
+
+  .plan-form select {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.3em;
+    background: #eee;
+    color: #888888;
   }
 </style>
