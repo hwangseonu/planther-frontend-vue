@@ -5,7 +5,7 @@
         <p class="register-title">회원가입</p>
         <i class="register-close fas fa-times" @click="close"></i>
       </div>
-      <div class="register-form">
+      <div class="register-form" @keypress.enter="register">
         <input v-model="username" title="username" placeholder="Username">
         <input v-model="password" title="password" placeholder="Password" type="password">
         <input v-model="name" title="name" placeholder="Name">

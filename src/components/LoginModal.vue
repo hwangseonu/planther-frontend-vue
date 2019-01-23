@@ -5,7 +5,7 @@
         <p class="login-title">로그인</p>
         <i class="login-close fas fa-times" @click="close"></i>
       </div>
-      <div class="login-form">
+      <div class="login-form" @keypress.enter="login">
         <input v-model="username" title="username" placeholder="Username">
         <input v-model="password" title="password" placeholder="Password" type="password">
         <button class="login-button" @click="login">로그인</button>
