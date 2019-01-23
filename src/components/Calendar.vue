@@ -31,6 +31,7 @@
 <script>
   import Day from './Day';
   import PlanModal from './PlanInfoModal';
+  import router from '@/router';
 
   const Utils = {
     isLeapYear(year) {
@@ -42,7 +43,7 @@
       if (month === 2 && Utils.isLeapYear(year)) {
         day += 1;
       }
-      return day;
+      return parseInt(day);
     },
     getDayOfWeek(year, month, day) {
       const t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
@@ -58,11 +59,11 @@
     data() {
       return {
         weeks: [
-          [], [], [], [], []
+          [], [], [], [], [], []
         ]
       }
     },
-    mounted: function () {
+    beforeMount() {
       let {year, month} = this.date;
       year = parseInt(year);
       month = parseInt(month);
@@ -75,6 +76,11 @@
       } else if (month > 12) {
         window.location.href = `/calendar/${year + 1}/${month - 12}`;
       }
+    },
+    mounted () {
+      let {year, month} = this.date;
+      year = parseInt(year);
+      month = parseInt(month);
 
       [...Array(Utils.getDayOfWeek(year, month, 1)).keys()].map(i => this.weeks[0].push(''));
 
@@ -84,6 +90,7 @@
         this.weeks[j].push(i + 1);
       })
     },
+
   }
 </script>
 
