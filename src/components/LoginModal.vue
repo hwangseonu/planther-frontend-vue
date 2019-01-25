@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="login-wrapper" @click.self="close">
+  <div v-if="show" class="login-wrapper" @click.self="close">
     <div class="login-modal">
       <div class="login-header">
         <p class="login-title">로그인</p>
@@ -24,19 +24,19 @@
     components: {Loading},
     data() {
       return {
-        visible: false,
+        show: false,
         loading: false,
         username: '',
         password: ''
       }
     },
     mounted () {
-      this.$root.$on('show-login', () => this.visible = true)
+      this.$root.$on('show-login', () => this.show = true)
     },
     methods: {
       close: function () {
         this.username = this.password = '';
-        this.visible = false
+        this.show = false
       },
       login: function () {
         if (this.username === '' || this.password === '') {

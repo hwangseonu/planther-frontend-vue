@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="register-wrapper" @click.self="close">
+  <div v-if="show" class="register-wrapper" @click.self="close">
     <div class="register-modal">
       <div class="register-header">
         <p class="register-title">회원가입</p>
@@ -15,15 +15,21 @@
         <button class="register-button" @click="register">회원가입</button>
       </div>
     </div>
+    <loading v-if="loading"></loading>
   </div>
 </template>
 
 <script>
+  import Loading from './Loading';
+  import router from '@/router';
+
   export default {
     name: "RegisterModal",
+    components: {Loading},
     data() {
       return {
-        visible: false,
+        show: false,
+        loading: false,
         username: '',
         password: '',
         name: '',
@@ -32,14 +38,15 @@
         num: ''
       }
     },
-    mounted: function () {
-      this.$root.$on('show-register', () => this.visible = true);
+    mounted() {
+      this.$root.$on('show-register', () => this.show = true);
     },
     methods: {
       register: function () {
         if (this.username === '' || this.password === '' || this.name === '' || this.grade === '' || this.cls === '' || this.num === '') {
           alert("빈칸이 있습니다.");
         } else {
+          this.loading = true;
           this.$store.dispatch('signUp', {
             username: this.username,
             password: this.password,
@@ -47,12 +54,20 @@
             grade: this.grade,
             cls: this.cls,
             num: this.num
-          }).then(() => this.username = this.password = this.name = this.grade = this.cls = this.num = '')
+          }).then(() => {
+            this.username = this.password = this.name = this.grade = this.cls = this.num = '';
+            alert("회원가입되었습니다.");
+            this.loading = false;
+            router.go(0);
+          }).catch(err => {
+            alert("회원가입에 실패했습니다.");
+            this.loading = false;
+          })
         }
       },
       close: function () {
         this.username = this.password = this.name = this.grade = this.cls = this.num = '';
-        this.visible = false;
+        this.show = false;
       },
     }
   }
