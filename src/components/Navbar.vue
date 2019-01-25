@@ -7,7 +7,7 @@
     <div class="navbar-menu">
       <div v-if="login">
         <span class="menu-item">{{user.username}}님 환영합니다.</span>
-        <span class="menu-item" @click="$store.dispatch('signOut')">로그아웃</span>
+        <span class="menu-item" @click="signOut">로그아웃</span>
       </div>
       <div v-else>
         <span class="menu-item" @click="showLogin">로그인</span>
@@ -22,6 +22,7 @@
 <script>
   import LoginModal from './LoginModal';
   import RegisterModal from './RegisterModal';
+  import router from '@/router';
 
   export default {
     name: 'Navbar',
@@ -35,11 +36,17 @@
     },
     components: {LoginModal, RegisterModal},
     methods: {
-      showLogin: function () {
+      showLogin() {
         this.$root.$emit('show-login');
       },
-      showRegister: function () {
+      showRegister() {
         this.$root.$emit('show-register');
+      },
+      signOut() {
+        this.$store.dispatch('signOut').then(_ => {
+          alert("로그아웃되었습니다.");
+          router.go(0);
+        });
       }
     }
   }

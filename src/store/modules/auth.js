@@ -26,27 +26,29 @@ const actions = {
     });
   },
   signUp({commit, getters}, payload) {
-    this._vm.$http.post('/users', {
-      username: payload.username,
-      password: payload.password,
-      name: payload.name,
-      grade: payload.grade,
-      cls: payload.cls,
-      number: payload.num
-    }).then(res => {
-      alert("회원가입되었습니다.");
-      router.go(0);
-    }).catch(err => {
-      alert("회원가입에 실패했습니다.");
-    })
+    return new Promise((resolve, reject) => {
+      this._vm.$http.post('/users', {
+        username: payload.username,
+        password: payload.password,
+        name: payload.name,
+        grade: payload.grade,
+        cls: payload.cls,
+        number: payload.num
+      }).then(_ => {
+        resolve();
+      }).catch(err => {
+        reject(err)
+      })
+    });
   },
   signOut({commit, getters}) {
-    if (getters.isLogin) {
-      this._vm.$cookie.delete('JWT');
-      commit(types.SET_LOGIN_STATUS, {isLogin: false});
-      alert("로그아웃 되었습니다.");
-      router.go(0);
-    }
+    return new Promise((resolve) => {
+      if (getters.isLogin) {
+        this._vm.$cookie.delete('JWT');
+        commit(types.SET_LOGIN_STATUS, {isLogin: false});
+        resolve();
+      }
+    });
   }
 };
 

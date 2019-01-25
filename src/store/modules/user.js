@@ -35,10 +35,10 @@ const actions = {
           commit(types.SET_USER_DATA, res.data);
           commit(types.SET_LOGIN_STATUS, {isLogin: true});
           resolve(res);
-        }).catch(_ => {
+        }).catch(err => {
           this._vm.$cookie.delete('JWT');
           commit(types.SET_LOGIN_STATUS, {isLogin: false});
-          router.go(0);
+          reject(err);
         })
       } else {
         commit(types.SET_LOGIN_STATUS, {isLogin: false});
