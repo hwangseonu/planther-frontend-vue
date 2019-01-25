@@ -27,10 +27,10 @@
   export default {
     name: 'Navbar',
     computed: {
-      login: function () {
+      login() {
         return this.$store.getters.isLogin
       },
-      user: function () {
+      user() {
         return this.$store.getters.userData
       }
     },

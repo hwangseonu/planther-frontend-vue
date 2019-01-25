@@ -34,7 +34,7 @@
       }
     },
     methods: {
-      submit: function () {
+      submit() {
         if (this.title === '' || this.content === '' || this.type === '') {
           alert("빈칸이 있습니다.");
         } else {
@@ -60,7 +60,7 @@
           })
         }
       },
-      close: function () {
+      close() {
         this.$root.$emit('close-addplan', {date: this.date});
       }
     }

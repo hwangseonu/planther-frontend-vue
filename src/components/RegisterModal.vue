@@ -42,7 +42,7 @@
       this.$root.$on('show-register', () => this.show = true);
     },
     methods: {
-      register: function () {
+      register() {
         if (this.username === '' || this.password === '' || this.name === '' || this.grade === '' || this.cls === '' || this.num === '') {
           alert("빈칸이 있습니다.");
         } else {
@@ -65,7 +65,7 @@
           })
         }
       },
-      close: function () {
+      close() {
         this.username = this.password = this.name = this.grade = this.cls = this.num = '';
         this.show = false;
       },

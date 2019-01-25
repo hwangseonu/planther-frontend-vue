@@ -62,7 +62,7 @@
         ]
       }
     },
-    beforeMount() {
+    mounted() {
       let {year, month} = this.date;
       year = parseInt(year);
       month = parseInt(month);
@@ -75,11 +75,6 @@
       } else if (month > 12) {
         window.location.href = `/calendar/${year + 1}/${month - 12}`;
       }
-    },
-    mounted () {
-      let {year, month} = this.date;
-      year = parseInt(year);
-      month = parseInt(month);
 
       [...Array(Utils.getDayOfWeek(year, month, 1)).keys()].map(i => this.weeks[0].push(''));
 
@@ -89,7 +84,6 @@
         this.weeks[j].push(i + 1);
       })
     },
-
   }
 </script>
 
@@ -134,7 +128,7 @@
     color: blue;
   }
 
-  @media screen and (max-width: 1280px){
+  @media screen and (max-width: 1280px) {
     .cal-table tbody th {
       height: 14vw;
     }

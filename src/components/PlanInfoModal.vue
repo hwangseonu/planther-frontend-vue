@@ -21,23 +21,23 @@
 
   export default {
     name: "PlanInfoinfo",
-    data () {
-       return {
-         show: false,
-         plan: {}
-       }
+    data() {
+      return {
+        show: false,
+        plan: {}
+      }
     },
     computed: {
-      computedContent () {
+      computedContent() {
         return this.plan.content.split(/\n/);
       }
     },
     methods: {
-      close () {
+      close() {
         this.show = false;
         this.plan = {};
       },
-      deletePlan () {
+      deletePlan() {
         const jwt = this.$cookie.get('JWT');
 
         this.$http.delete(`/plans/${this.plan.id}`, {
@@ -53,7 +53,7 @@
         })
       }
     },
-    mounted () {
+    mounted() {
       this.$root.$on('show-info', (plan) => {
         this.show = true;
         this.plan = plan;
@@ -95,10 +95,10 @@
     width: 100%;
     border-radius: 10px;
     cursor: pointer;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    word-wrap:normal;
-    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
   }
 
   .info-close {

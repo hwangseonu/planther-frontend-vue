@@ -30,7 +30,7 @@
         plans: []
       }
     },
-    mounted: function () {
+    mounted() {
       this.$root.$on('close-addplan', ({date}) => {
         const {year, month, day} = date;
         if (year === this.date.year && month === this.date.month && day === this.date.day) {
@@ -55,20 +55,20 @@
       }
     },
     methods: {
-      showInfo: function (plan) {
+      showInfo(plan) {
         this.$root.$emit('show-info', plan);
       },
-      addPlan: function () {
+      addPlan() {
         if (!this.$store.getters.isLogin) {
           alert("먼저 로그인을 해주세요!");
         } else {
           this.showAddPlan = true;
         }
       },
-      mouseOver: function () {
+      mouseOver() {
         this.hover = true;
       },
-      mouseLeave: function () {
+      mouseLeave() {
         this.hover = false;
       }
     }

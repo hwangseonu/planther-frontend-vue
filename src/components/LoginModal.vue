@@ -34,11 +34,11 @@
       this.$root.$on('show-login', () => this.show = true)
     },
     methods: {
-      close: function () {
+      close() {
         this.username = this.password = '';
         this.show = false
       },
-      login: function () {
+      login() {
         if (this.username === '' || this.password === '') {
           alert("빈칸이 있습니다.");
         } else {
