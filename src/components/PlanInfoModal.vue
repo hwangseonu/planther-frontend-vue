@@ -13,17 +13,21 @@
         <button class="delete-button" @click="deletePlan">삭제</button>
       </div>
     </div>
+    <loading v-if="loading"></loading>
   </div>
 </template>
 
 <script>
+  import Loading from './Loading';
   import router from '@/router';
 
   export default {
     name: "PlanInfoinfo",
+    components: {Loading},
     data() {
       return {
         show: false,
+        loading: false,
         plan: {}
       }
     },
@@ -39,6 +43,7 @@
       },
       deletePlan() {
         const jwt = this.$cookie.get('JWT');
+        this.loading = true;
 
         this.$http.delete(`/plans/${this.plan.id}`, {
           headers: {
@@ -46,9 +51,11 @@
           }
         }).then(_ => {
           alert("삭제되었습니다.");
+          this.loading = false;
           router.go(0);
         }).catch(_ => {
           alert("삭제 도중 오류가 발생하였습니다.");
+          this.loading = false;
           router.go(0);
         })
       }

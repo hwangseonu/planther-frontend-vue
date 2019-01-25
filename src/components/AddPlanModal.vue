@@ -17,17 +17,21 @@
         <button class="submit-button" @click="submit">추가</button>
       </div>
     </div>
+    <Loading v-if="loading"></Loading>
   </div>
 </template>
 
 <script>
+  import Loading from './Loading';
   import router from '@/router';
 
   export default {
     name: "AddPlanModal",
     props: ['date'],
+    components: {Loading},
     data() {
       return {
+        loading: false,
         title: '',
         content: '',
         type: ''
@@ -38,6 +42,7 @@
         if (this.title === '' || this.content === '' || this.type === '') {
           alert("빈칸이 있습니다.");
         } else {
+          this.loading = true;
           const jwt = this.$cookie.get('JWT');
 
           this.$http.post('/plans', {
@@ -53,9 +58,11 @@
             }
           }).then(_ => {
             alert("일정을 등록하였습니다.");
+            this.loading = false;
             router.go(0);
           }).catch(_ => {
             alert("문제가 발생하였습니다.");
+            this.loading = false;
             router.go(0);
           })
         }
