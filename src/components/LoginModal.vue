@@ -11,20 +11,26 @@
         <button class="login-button" @click="login">로그인</button>
       </div>
     </div>
+    <Loading v-if="loading"></Loading>
   </div>
 </template>
 
 <script>
+  import Loading from './Loading';
+  import router from '@/router';
+
   export default {
     name: "LoginModal",
+    components: {Loading},
     data() {
       return {
         visible: false,
+        loading: false,
         username: '',
         password: ''
       }
     },
-    mounted: function () {
+    mounted () {
       this.$root.$on('show-login', () => this.visible = true)
     },
     methods: {
@@ -36,10 +42,20 @@
         if (this.username === '' || this.password === '') {
           alert("빈칸이 있습니다.");
         } else {
+          this.loading = true;
+          console.log(this.loading);
           this.$store.dispatch('signIn', {
             username: this.username,
             password: this.password
-          }).then(_ => this.username = this.password = '')
+          }).then(_ => {
+            this.loading = false;
+            this.username = this.password = '';
+            alert("로그인되었습니다.");
+            router.go(0);
+          }).catch(_ => {
+            this.loading = false;
+            alert("로그인에 실패했습니다.");
+          })
         }
       },
     }

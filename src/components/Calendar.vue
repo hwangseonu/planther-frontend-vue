@@ -31,7 +31,6 @@
 <script>
   import Day from './Day';
   import PlanModal from './PlanInfoModal';
-  import router from '@/router';
 
   const Utils = {
     isLeapYear(year) {

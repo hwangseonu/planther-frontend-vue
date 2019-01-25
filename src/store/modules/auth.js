@@ -11,17 +11,19 @@ const getters = {
 
 const actions = {
   signIn({commit, getters}, payload) {
-    if (!getters.isLogin) {
-      this._vm.$http.post('/auth', {
-        username: payload.username,
-        password: payload.password
-      }).then(res => {
-        this._vm.$cookie.set('JWT', res.data.access);
-        router.go(0);
-      }).catch(err => {
-        alert("로그인에 실패했습니다.");
-      })
-    }
+    return new Promise((resolve, reject) => {
+      if (!getters.isLogin) {
+        this._vm.$http.post('/auth', {
+          username: payload.username,
+          password: payload.password
+        }).then(res => {
+          this._vm.$cookie.set('JWT', res.data.access);
+           resolve();
+        }).catch(err => {
+          reject(err);
+        })
+      }
+    });
   },
   signUp({commit, getters}, payload) {
     this._vm.$http.post('/users', {
